@@ -1,0 +1,197 @@
+####### 1 #####
+
+use pust
+create table depart(
+       dept_name varchar(20),
+       building varchar (15),
+       budget numeric(8,2),
+       primary key(dept_name)
+);
+insert into depart values('ICE','Engineering',95000)
+insert into depart values('History','Arts',76000)
+insert into depart values('Social','Arts',68000)
+insert into depart values('Physices','Science',89000)
+insert into depart values('Chemistry','Science',67000)
+insert into depart values('ENGLISH','Library',49000)
+
+select * from depart
+--deleting
+delete from depart where dept_name ='CSE'
+select * from depart
+ --update
+ update depart set budget = budget + budget*4.5 where budget <75000
+ select * from depart
+
+
+###### 2 ####
+
+create database pust
+use pust
+create table deptbe(
+ID varchar(20),
+name varchar(15) not null,
+dept_name varchar(15),
+salary numeric(8,2),
+primary key(ID));
+insert into deptbe(ID,name,dept_name,salary) values('200626','Naimur','ICE','95000')
+insert into deptbe(ID,name,dept_name,salary) values('100535','Muslima','IR','75000')
+insert into deptbe(ID,name,dept_name,salary) values('172098','Ashik','URP','67000')
+insert into deptbe(ID,name,dept_name,salary) values('156742','Kamrul','Physices','98000')
+insert into deptbe(ID,name,dept_name,salary) values('134567','Khairul','CE','43000')
+insert into deptbe(ID,name,dept_name,salary) values('245672','Rohim','MCE','57000')
+select * from deptbe
+alter table deptbe add course_id varchar(20)
+select * from deptbe
+drop table deptbe 
+select * from deptbe
+
+
+
+##### 3 #####
+
+
+create database pust
+use pust
+create table datadept(
+       dept_name varchar(15),
+       bulding varchar(15),
+       budget numeric(8,2)
+       primary key(dept_name)
+
+);
+insert into datadept values('ICE','Engineering',97000)
+insert into datadept values('BBA','Commerce',75000)
+insert into datadept values('URP','CAFE',67000)
+insert into datadept values('EECE','Engineering',74000)
+insert into datadept values('P.A','ARTS',78000)
+insert into datadept values('ENGLISH','LIBRARY',49000)
+-- select clause--
+select * from datadept
+--form clause--
+select dept_name from datadept
+-- where clause
+select dept_name from datadept where dept_name = 'URP'
+
+
+#### 4 ####
+create database pust
+use pust
+create table datatable(
+  ID varchar(20),
+  name varchar(20) not null,
+  dept_name varchar(20),
+  salary numeric(8,2),
+  primary key(ID)
+);
+insert into datatable  values ('200626','Naimur','ICE',69000);
+insert into datatable  values ('200518','Muslima','CSE',87000);
+insert into datatable values ('192005','Ashik','URP',75000);
+insert into datatable  values ('189453','Rajin','Bangla',30000);
+insert into datatable values ('200316','Sobuz','History',76000);
+insert into datatable values ('170754','Rokon','Aublic',27000);
+select * from datatable
+select dept_name from datatable
+---group by---
+select name from datatable group by name;
+select dept_name,avg(salary) as avg_salary from datatable group by dept_name
+select dept_name,count(*) from datatable group by dept_name
+select * from datatable
+---having clause
+select dept_name,avg(salary) as avg_salary from datatable group by dept_name having avg(salary)>20000;
+----order by clause
+select * from datatable order by salary asc,name desc;
+---view
+create view faculty as 
+select ID,name,dept_name from datatable
+select * from datatable
+select * from faculty;
+----index
+--Indexing
+select salary from datatable;
+--create indexing
+create index salary_index on datatable(salary asc);
+select salary from datatable;
+--delete indexing
+drop index instructor.salary_index;
+---procedure
+create procedure instruct_proc
+AS
+BEGIN
+select name as authors_name from datatable where ID = '200626'
+END
+exec instruct_proc
+select * from datatable
+
+
+##### 5 ####
+
+
+create database pust
+use pust;
+ 
+ 
+ -- Create Table
+create table newdept(
+dept_name varchar(20),
+building varchar(15), 
+budget numeric(12,2), 
+primary key(dept_name));
+
+--Insert Value in Table
+insert into newdept values('ICE','Nayan',85000);
+insert into newdept values('CSE','Muslima',970000);
+insert into newdept values('EEE','Ashik',670000);
+
+--To Display all value of Department Table
+select * from newdept;
+
+-- Create instructor Table
+create table instr(
+ID varchar(5),
+name varchar(20) not NULL, 
+dept_name varchar(20),
+salary numeric(8,2), 
+primary key(ID));
+
+--Insert Value in Table
+insert into instr values('10101','Rohim','Social',70000);
+insert into instr values('10202','Karim','CSE',50000);
+insert into instr values('10303','Jorina','Public.A',87000);
+DROP TABLE instr;
+
+
+--To Display all value of instructor Table
+select * from instr;
+
+--To display all
+print('Instructor Table:');
+select * from instr;
+select * from newdept;
+
+
+--Cartesian Product
+select building, newdept.dept_name,salary from newdept,instr where newdept.dept_name=instr.dept_name;
+
+-- natural join ---
+SELECT *
+FROM newdept
+INNER JOIN instr ON newdept.dept_name = instr.dept_name;
+
+--left outer join
+SELECT *
+FROM newdept
+LEFT JOIN instr ON newdept.dept_name = instr.dept_name;
+
+--Right outer join
+SELECT *
+FROM newdept
+RIGHT JOIN instr ON newdept.dept_name = instr.dept_name;
+
+
+--Full outer join
+SELECT *
+FROM newdept
+FULL OUTER JOIN instr ON newdept.dept_name = instr.dept_name;
+
+
+
